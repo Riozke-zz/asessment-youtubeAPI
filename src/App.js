@@ -1,26 +1,53 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
+import AppRouter, { history } from './routers/AppRouter';
+import configureStore from './store/configureStore';
+import { login, logout } from './actions/auth';
+import 'normalize.css/normalize.css';
+import './styles/styles.scss';
+import 'react-dates/lib/css/_datepicker.css';
+import { firebase } from './firebase/firebase';
+import LoadingPage from './components/LoadingPage';
+import { startSetVideos } from './actions/saveVideos';
+import * as serviceWorker from './serviceWorker';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+const store = configureStore();
+//console.log('testing');
 
-export default App;
+const jsx= (
+    <Provider store={store}>
+        <AppRouter />
+    </Provider>
+);
+
+let hasRendered = false;
+const renderApp = () => {
+    if (!hasRendered) {
+        ReactDOM.render(jsx, document.getElementById('app'));
+        hasRendered = true;
+    }
+};
+
+ReactDOM.render(<LoadingPage />, document.getElementById('app'));
+
+firebase.auth().onAuthStateChanged((user) => {
+    if(user) { 
+        store.dispatch(login(user.uid));
+        store.dispatch(startSetVideos()).then(() => {
+            renderApp();
+            if (history.location.pathname === '/') {
+                history.push('/dashboard');
+            }
+        });        
+    } else {
+        store.dispatch(logout());
+        renderApp();
+        history.push('/');
+    }
+});
+
+// If you want your app to work offline and load faster, you can change
+// unregister() to register() below. Note this comes with some pitfalls.
+// Learn more about service workers: https://bit.ly/CRA-PWA
+serviceWorker.unregister();
