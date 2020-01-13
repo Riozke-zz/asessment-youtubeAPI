@@ -5,7 +5,7 @@ export default class VideoForm extends React.Component {
       super(props);
   
       this.state = {
-        description: props.expense ? props.expense.description : '',
+        description: props.video ? props.video.description : '',        
         error: ''
       };
     }

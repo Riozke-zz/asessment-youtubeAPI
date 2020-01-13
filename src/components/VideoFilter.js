@@ -4,7 +4,7 @@ import { setTextFilter } from '../actions/filters';
 
 export class VideoFilter extends React.Component {
     onTextChange = (e) => {
-        this.PaymentResponse.setTextFilter(e.target.value);        
+        this.props.setTextFilter(e.target.value);        
     };
 
     render() {

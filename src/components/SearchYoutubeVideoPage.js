@@ -31,23 +31,26 @@ class SearchYoutubeVideo extends React.Component {
 
     render() {
         const { selectedVideo, videos } = this.state;
-
         return(
-            <Grid justify="center" container spacing={10}>
-                <Grid item xs={12}>
-                    <Grid container spacing={10}>
-                        <Grid item xs={12}>
-                            <SearchBar onFormSubmit={this.handleSubmit}/>
+            <div className="content-container">
+                
+                <Grid justify="center" container spacing={10}>
+                    <Grid item xs={12}>
+                        <Grid container spacing={10}>
+                            <Grid item xs={12}>
+                                <SearchBar onFormSubmit={this.handleSubmit}/>
+                            </Grid>
+                            <Grid item xs={8}>
+                                <VideoDetails video={selectedVideo}/>
+                            </Grid>
+                            <Grid item xs={4}>
+                                <VideoList videos={videos} onVideoSelect={this.onVideoSelect}/>    
+                            </Grid>
                         </Grid>
-                        <Grid item xs={8}>
-                            <VideoDetails video={selectedVideo}/>
-                        </Grid>
-                        <Grid item xs={4}>
-                            <VideoList videos={videos} onVideoSelect={this.onVideoSelect}/>    
-                        </Grid>
-                    </Grid>
                 </Grid>
-            </Grid>
+                </Grid>
+            </div>
+            
         )
     }
 }

@@ -4,11 +4,12 @@ import database from '../firebase/firebase';
 export const addVideo = (video) => ({
     type: 'ADD_VIDEO',
     video
-  });
+});
   
 export const startAddVideo = (videoData = {}) => {
-  return (dispatch, getState) => {
+  return (dispatch, getState) => {    
     const uid = getState().auth.uid;
+    //console.log(uid);
     const {
       description = ''
     } = videoData;
@@ -47,9 +48,10 @@ export const setVideos = (videos) => ({
 export const startSetVideos = () => {
   return (dispatch, getState) => {
     const uid = getState().auth.uid;
+    
     return database.ref(`users/${uid}/videos`).once('value').then((snapshot) => {
       const videos = [];
-
+      //console.log('test',uid);
       snapshot.forEach((childSnapshot) => {
         videos.push({
           id: childSnapshot.key,

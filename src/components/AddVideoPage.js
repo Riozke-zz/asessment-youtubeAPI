@@ -12,9 +12,11 @@ export class AddVideoPage extends React.Component {
     render() {
       return (
         <div>
-            <VideoForm 
-                onSubmit={this.onSubmit}
+            <div className="content-container">
+            <VideoForm               
+              onSubmit={this.onSubmit}
             />  
+            </div>            
             <SearchYoutubeVideo />
         </div>
       );
