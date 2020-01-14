@@ -21,6 +21,7 @@ function SearchYoutubeVideo() {
 				maxResults: 5,
 				key: 'AIzaSyCydL2-x9oRivprFkFVtMsA5e_XNUgNEuw',
 				q: searchTerm,
+				type: 'video'
 			}
 		}).then(({ data }) => {
 			setVideos(data.items);
