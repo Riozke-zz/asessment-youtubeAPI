@@ -2,7 +2,7 @@ import database from '../firebase/firebase';
 
 // ADD_VIDEO
 export const addVideo = (video) => ({
-    type: 'ADD_VIDEO',
+    type: 'ADD_VIDEO',    
     video
 });
   
@@ -11,9 +11,10 @@ export const startAddVideo = (videoData = {}) => {
     const uid = getState().auth.uid;
     //console.log(uid);
     const {
-      description = ''
+      description = '',
+      videoId = ''
     } = videoData;
-    const video = { description };
+    const video = { description, videoId };
   
     return database.ref(`users/${uid}/videos`).push(video).then((ref) => {
       dispatch(addVideo({

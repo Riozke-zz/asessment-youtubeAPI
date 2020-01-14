@@ -1,14 +1,32 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 export default class VideoForm extends React.Component {
-    constructor(props) {
-      super(props);
+	static propTypes = {
+		video: PropTypes.shape({
+			id: PropTypes.shape({
+				videoId: PropTypes.string
+			})
+		})
+	};
+
+	static defaultProps = {
+		video: {
+			id: {
+				videoId: ''
+			}
+		}
+	}
+
+  constructor(props) {
+    super(props);
   
-      this.state = {
-        description: props.video ? props.video.description : '',        
-        error: ''
-      };
-    }
+    this.state = {
+		description: '', 
+      error: ''
+    };
+	}
+
     onDescriptionChange = (e) => {
       const description = e.target.value;
       this.setState(() => ({ description }));
@@ -18,14 +36,16 @@ export default class VideoForm extends React.Component {
       e.preventDefault();
   
       if (!this.state.description) {
-        this.setState(() => ({ error: 'Please provide description and amount.' }));
+        this.setState(() => ({ error: 'Please provide description.' }));
       } else {
         this.setState(() => ({ error: '' }));
         this.props.onSubmit({
-          description: this.state.description
+          description: this.state.description,
+          videoId: this.props.video.id.videoId
         });
       }
-    };
+	};
+
     render() {
       return (
           <form className="form" onSubmit={this.onSubmit}>
@@ -39,7 +59,7 @@ export default class VideoForm extends React.Component {
               onChange={this.onDescriptionChange}
             />
             <div>
-              <button className="button">Save Video</button> 
+              <button type="submit" className="button">Save Video</button> 
             </div>         
           </form>
       )

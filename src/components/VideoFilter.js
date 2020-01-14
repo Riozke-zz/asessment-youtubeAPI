@@ -15,7 +15,7 @@ export class VideoFilter extends React.Component {
                 <input
                   type="text"
                   className="text-input"
-                  placeholder="Search videos"
+                  placeholder="Saved videos"
                   value={this.props.filters.text}
                   onChange={this.onTextChange}
                 />

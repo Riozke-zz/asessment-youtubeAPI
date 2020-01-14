@@ -1,8 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
- const SearchVideoButton = () => {
-    
+ const SearchVideoButton = () => {    
   return (
     <div className="page-header">
       <div className="content-container">
