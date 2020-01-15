@@ -19,7 +19,7 @@ function SearchYoutubeVideo() {
 			params: {
 				part: 'snippet',
 				maxResults: 5,
-				key: 'AIzaSyCydL2-x9oRivprFkFVtMsA5e_XNUgNEuw',
+				key: 'AIzaSyBXMSDAd3qrc2RtT7pVl6Br9MlGcj1ws9o',
 				q: searchTerm,
 				type: 'video'
 			}
